@@ -10,6 +10,16 @@ from src import storage
 from src.pipeline import build_pipeline
 from src.theme import STATUS, inject_css, render_hero, stat_tile_html, status_badge_html, stepper_html
 
+# On Streamlit Community Cloud there's no .env file — secrets are configured via the
+# app's Settings > Secrets UI instead, exposed as st.secrets. Bridge it into
+# os.environ so extraction.py/decision.py (which read os.environ, for local-dev
+# parity with .env) work unchanged in both environments.
+try:
+    if "GROQ_API_KEY" in st.secrets:
+        os.environ["GROQ_API_KEY"] = st.secrets["GROQ_API_KEY"]
+except Exception:
+    pass  # no secrets.toml present locally — .env / os.environ handles it instead
+
 st.set_page_config(page_title="Invoice Processing", page_icon="🧾", layout="wide")
 inject_css(st)
 
@@ -177,7 +187,7 @@ def render_dashboard_view():
 
         event = st.dataframe(
             display_df,
-            use_container_width=True,
+            width="stretch",
             hide_index=True,
             on_select="rerun",
             selection_mode="single-row",

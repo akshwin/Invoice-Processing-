@@ -1186,5 +1186,95 @@
     },
     "match_method": "no_match",
     "extraction_method": "vision"
+  },
+  {
+    "run_id": "9c104bb4-9afb-4105-b403-22a632eeade9",
+    "timestamp": "2026-07-11T22:20:31.577541",
+    "invoice_number": "INV-9110",
+    "vendor_name": "Cascade Parts & Supply",
+    "matched_po": "PO-10244",
+    "total": 2150.0,
+    "decision": "REJECT",
+    "reasoning": "The invoice from Cascade Parts & Supply for INV-9110 is being rejected because we've already paid an invoice with the same vendor, invoice number, and amount. This means we've already processed a payment of $0 (amount not specified) for INV-9110 from Cascade Parts & Supply, so this duplicate invoice cannot be paid again.",
+    "rules_triggered": [
+      "BR-3"
+    ],
+    "extracted_invoice": {
+      "invoice_number": "INV-9110",
+      "invoice_date": "2026-05-22",
+      "vendor_name": "Cascade Parts & Supply",
+      "po_reference": "PO-10244",
+      "line_items": [
+        {
+          "description": "Ball bearings (box of 100)",
+          "quantity": 6.0,
+          "unit_price": 175.0,
+          "amount": 1050.0
+        },
+        {
+          "description": "Drive belts",
+          "quantity": 20.0,
+          "unit_price": 30.0,
+          "amount": 600.0
+        },
+        {
+          "description": "Lubricant (5gal drum)",
+          "quantity": 10.0,
+          "unit_price": 50.0,
+          "amount": 500.0
+        }
+      ],
+      "subtotal": 2150.0,
+      "tax": 0.0,
+      "total": 2150.0,
+      "extraction_confidence_notes": ""
+    },
+    "match_method": "po_number",
+    "extraction_method": "vision"
+  },
+  {
+    "run_id": "0c5874b2-8890-492b-ae52-e2522a3718b5",
+    "timestamp": "2026-07-11T22:21:29.585174",
+    "invoice_number": "INV-9110",
+    "vendor_name": "Cascade Parts & Supply",
+    "matched_po": "PO-10244",
+    "total": 2150.0,
+    "decision": "REJECT",
+    "reasoning": "The invoice from Cascade Parts & Supply for INV-9110 is being rejected because we've already paid an invoice with the same vendor, invoice number, and amount. This means we've likely already paid this invoice once, and paying it again would be a duplicate payment.",
+    "rules_triggered": [
+      "BR-3"
+    ],
+    "extracted_invoice": {
+      "invoice_number": "INV-9110",
+      "invoice_date": "2026-05-22",
+      "vendor_name": "Cascade Parts & Supply",
+      "po_reference": "PO-10244",
+      "line_items": [
+        {
+          "description": "Ball bearings (box of 100)",
+          "quantity": 6.0,
+          "unit_price": 175.0,
+          "amount": 1050.0
+        },
+        {
+          "description": "Drive belts",
+          "quantity": 20.0,
+          "unit_price": 30.0,
+          "amount": 600.0
+        },
+        {
+          "description": "Lubricant (5gal drum)",
+          "quantity": 10.0,
+          "unit_price": 50.0,
+          "amount": 500.0
+        }
+      ],
+      "subtotal": 2150.0,
+      "tax": 0.0,
+      "total": 2150.0,
+      "extraction_confidence_notes": ""
+    },
+    "match_method": "po_number",
+    "extraction_method": "vision"
   }
 ]

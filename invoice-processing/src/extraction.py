@@ -20,7 +20,6 @@ import os
 import re
 from typing import Optional
 
-import fitz  # PyMuPDF
 import pdfplumber
 from dotenv import load_dotenv
 from groq import Groq
@@ -58,6 +57,9 @@ def _pdf_text_or_none(pdf_path: str) -> Optional[str]:
 
 
 def _render_pdf_pages_to_png(pdf_path: str, dpi: int = 150) -> list[bytes]:
+    import fitz  # PyMuPDF — imported lazily so it only loads for the scanned/vision
+
+    # path, not on every app boot or script rerun.
     doc = fitz.open(pdf_path)
     try:
         return [page.get_pixmap(dpi=dpi).tobytes("png") for page in doc]
