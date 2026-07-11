@@ -1,0 +1,1190 @@
+[
+  {
+    "run_id": "19b037c7-b462-4bf2-8439-7ed7bfda9796",
+    "timestamp": "2026-07-11T00:04:58.441225",
+    "invoice_number": "INV-1001",
+    "vendor_name": "Bluebird Supplies Inc.",
+    "matched_po": "PO-10234",
+    "total": 4500.0,
+    "decision": "APPROVE",
+    "reasoning": "The invoice from Bluebird Supplies Inc. for $4500.00 was approved because it exactly matches the amount on purchase order PO-10234, which is also for $4500.00. This match was made based on the purchase order number, confirming that the invoice is valid and should be paid.",
+    "rules_triggered": [
+      "BR-1",
+      "BR-2",
+      "BR-3",
+      "BR-4"
+    ],
+    "extracted_invoice": {
+      "invoice_number": "INV-1001",
+      "invoice_date": "2026-05-12",
+      "vendor_name": "Bluebird Supplies Inc.",
+      "po_reference": "PO-10234",
+      "line_items": [
+        {
+          "description": "Office chairs (ergonomic)",
+          "quantity": 10.0,
+          "unit_price": 350.0,
+          "amount": 3500.0
+        },
+        {
+          "description": "Standing desks",
+          "quantity": 2.0,
+          "unit_price": 500.0,
+          "amount": 1000.0
+        }
+      ],
+      "subtotal": 4500.0,
+      "tax": 0.0,
+      "total": 4500.0,
+      "extraction_confidence_notes": ""
+    },
+    "match_method": "po_number",
+    "extraction_method": "text"
+  },
+  {
+    "run_id": "2fbb6c52-c04f-4048-9f6d-a1e8cfbbdbd4",
+    "timestamp": "2026-07-11T00:05:02.574818",
+    "invoice_number": "INV-2044",
+    "vendor_name": "Meridian Office Solutions",
+    "matched_po": "PO-10235",
+    "total": 2300.5,
+    "decision": "APPROVE",
+    "reasoning": "The invoice from Meridian Office Solutions for $2300.50 was approved because it exactly matches the amount on purchase order PO-10235, which also totals $2300.50. This exact match confirms that the invoice is valid and should be paid.",
+    "rules_triggered": [
+      "BR-1",
+      "BR-2",
+      "BR-3",
+      "BR-4"
+    ],
+    "extracted_invoice": {
+      "invoice_number": "INV-2044",
+      "invoice_date": "2026-05-14",
+      "vendor_name": "Meridian Office Solutions",
+      "po_reference": "PO-10235",
+      "line_items": [
+        {
+          "description": "Printer paper (case)",
+          "quantity": 20.0,
+          "unit_price": 45.0,
+          "amount": 900.0
+        },
+        {
+          "description": "Toner cartridges",
+          "quantity": 8.0,
+          "unit_price": 125.0,
+          "amount": 1000.0
+        },
+        {
+          "description": "Filing cabinets",
+          "quantity": 1.0,
+          "unit_price": 400.5,
+          "amount": 400.5
+        }
+      ],
+      "subtotal": 2300.5,
+      "tax": 0.0,
+      "total": 2300.5,
+      "extraction_confidence_notes": ""
+    },
+    "match_method": "po_number",
+    "extraction_method": "text"
+  },
+  {
+    "run_id": "65663675-4569-4b5c-99c8-1906ae6eacc3",
+    "timestamp": "2026-07-11T00:05:06.785534",
+    "invoice_number": "INV-3390",
+    "vendor_name": "Crestview Logistics LLC",
+    "matched_po": "PO-10236",
+    "total": 8770.0,
+    "decision": "APPROVE",
+    "reasoning": "The invoice from Crestview Logistics LLC for $8770.0 was approved because it matched purchase order PO-10236 for $8750.0, and the $20.0 difference is within our allowed tolerance. This match was made possible by matching the PO number on the invoice to the purchase order. The close match in amounts confirmed that the invoice is valid for payment.",
+    "rules_triggered": [
+      "BR-1",
+      "BR-2",
+      "BR-3",
+      "BR-4"
+    ],
+    "extracted_invoice": {
+      "invoice_number": "INV-3390",
+      "invoice_date": "2026-05-15",
+      "vendor_name": "Crestview Logistics LLC",
+      "po_reference": "PO-10236",
+      "line_items": [
+        {
+          "description": "Freight - regional route",
+          "quantity": 4.0,
+          "unit_price": 1990.0,
+          "amount": 7960.0
+        },
+        {
+          "description": "Fuel surcharge",
+          "quantity": 1.0,
+          "unit_price": 810.0,
+          "amount": 810.0
+        }
+      ],
+      "subtotal": 8770.0,
+      "tax": 0.0,
+      "total": 8770.0,
+      "extraction_confidence_notes": ""
+    },
+    "match_method": "po_number",
+    "extraction_method": "text"
+  },
+  {
+    "run_id": "f826d357-8ac4-4fe9-8f07-8cf98f68376b",
+    "timestamp": "2026-07-11T00:05:10.872384",
+    "invoice_number": "INV-4502",
+    "vendor_name": "Northgate Industrial Parts",
+    "matched_po": "PO-10237",
+    "total": 1200.0,
+    "decision": "APPROVE",
+    "reasoning": "The invoice from Northgate Industrial Parts for $1200.0 was approved because it exactly matches the amount on purchase order PO-10237, which is also for $1200.0. This match confirms that the invoice is valid and should be paid.",
+    "rules_triggered": [
+      "BR-1",
+      "BR-2",
+      "BR-3",
+      "BR-4"
+    ],
+    "extracted_invoice": {
+      "invoice_number": "INV-4502",
+      "invoice_date": "2026-05-16",
+      "vendor_name": "Northgate Industrial Parts",
+      "po_reference": null,
+      "line_items": [
+        {
+          "description": "Steel brackets (box of 50)",
+          "quantity": 6.0,
+          "unit_price": 150.0,
+          "amount": 900.0
+        },
+        {
+          "description": "Bolt assortment kit",
+          "quantity": 5.0,
+          "unit_price": 60.0,
+          "amount": 300.0
+        }
+      ],
+      "subtotal": 1200.0,
+      "tax": 0.0,
+      "total": 1200.0,
+      "extraction_confidence_notes": ""
+    },
+    "match_method": "vendor_and_amount",
+    "extraction_method": "text"
+  },
+  {
+    "run_id": "9bc0c862-4913-414a-a7cf-0d4bb835a597",
+    "timestamp": "2026-07-11T00:05:15.274661",
+    "invoice_number": "INV-5810",
+    "vendor_name": "Alderwood Consulting Group",
+    "matched_po": "PO-10238",
+    "total": 6200.0,
+    "decision": "FLAG_FOR_REVIEW",
+    "reasoning": "The invoice from Alderwood Consulting Group (INV-5810) for $6,200.00 has been flagged for review because it exceeds the purchase order amount of $5,600.00 by $600.00, which is more than the allowed difference of $112.00. This amount is outside the acceptable range, requiring further review.",
+    "rules_triggered": [
+      "BR-4"
+    ],
+    "extracted_invoice": {
+      "invoice_number": "INV-5810",
+      "invoice_date": "2026-05-18",
+      "vendor_name": "Alderwood Consulting Group",
+      "po_reference": "PO-10238",
+      "line_items": [
+        {
+          "description": "Process advisory - May engagement",
+          "quantity": 1.0,
+          "unit_price": 5600.0,
+          "amount": 5600.0
+        },
+        {
+          "description": "Additional workshop session (out of scope)",
+          "quantity": 1.0,
+          "unit_price": 600.0,
+          "amount": 600.0
+        }
+      ],
+      "subtotal": 6200.0,
+      "tax": 0.0,
+      "total": 6200.0,
+      "extraction_confidence_notes": ""
+    },
+    "match_method": "po_number",
+    "extraction_method": "text"
+  },
+  {
+    "run_id": "a584518c-452f-47c2-990f-7578461c764b",
+    "timestamp": "2026-07-11T00:05:19.303956",
+    "invoice_number": "INV-6021",
+    "vendor_name": "Fairview Business Services",
+    "matched_po": "PO-10239",
+    "total": null,
+    "decision": "FLAG_FOR_REVIEW",
+    "reasoning": "The invoice from Fairview Business Services (INV-6021) is being flagged for review because it's missing a crucial piece of information: the total amount due. This is necessary to accurately process the payment, so it needs to be reviewed and completed before it can move forward.",
+    "rules_triggered": [
+      "BR-2"
+    ],
+    "extracted_invoice": {
+      "invoice_number": "INV-6021",
+      "invoice_date": "2026-05-19",
+      "vendor_name": "Fairview Business Services",
+      "po_reference": "PO-10239",
+      "line_items": [
+        {
+          "description": "Payroll processing - May",
+          "quantity": 1.0,
+          "unit_price": 1800.0,
+          "amount": 1800.0
+        },
+        {
+          "description": "HR compliance review",
+          "quantity": 1.0,
+          "unit_price": 1400.0,
+          "amount": 1400.0
+        }
+      ],
+      "subtotal": 3200.0,
+      "tax": null,
+      "total": null,
+      "extraction_confidence_notes": ""
+    },
+    "match_method": "po_number",
+    "extraction_method": "text"
+  },
+  {
+    "run_id": "91c513fa-085f-4b16-9dbf-d1aa51d7058e",
+    "timestamp": "2026-07-11T00:05:24.079791",
+    "invoice_number": "INV-7188",
+    "vendor_name": "Summit Hardware Co.",
+    "matched_po": "PO-10240",
+    "total": 960.0,
+    "decision": "APPROVE",
+    "reasoning": "The invoice from Summit Hardware Co. for $960.00 was approved because it exactly matched the amount on purchase order PO-10240, which is also for $960.00. This match was made possible because the invoice and purchase order shared the same PO number.",
+    "rules_triggered": [
+      "BR-1",
+      "BR-2",
+      "BR-3",
+      "BR-4"
+    ],
+    "extracted_invoice": {
+      "invoice_number": "INV-7188",
+      "invoice_date": "2026-05-21",
+      "vendor_name": "Summit Hardware Co.",
+      "po_reference": "PO-10240",
+      "line_items": [
+        {
+          "description": "Hand tools assortment",
+          "quantity": 4.0,
+          "unit_price": 140.0,
+          "amount": 560.0
+        },
+        {
+          "description": "Tool chest (steel)",
+          "quantity": 1.0,
+          "unit_price": 400.0,
+          "amount": 400.0
+        }
+      ],
+      "subtotal": 960.0,
+      "tax": 0.0,
+      "total": 960.0,
+      "extraction_confidence_notes": ""
+    },
+    "match_method": "po_number",
+    "extraction_method": "vision"
+  },
+  {
+    "run_id": "4c1b2ff0-1190-4378-84ce-84190c3dfd95",
+    "timestamp": "2026-07-11T00:05:29.815105",
+    "invoice_number": "INV-7742",
+    "vendor_name": "Riverside Manufacturing Co.",
+    "matched_po": "PO-10242",
+    "total": 21380.0,
+    "decision": "APPROVE",
+    "reasoning": "The invoice from Riverside Manufacturing Co. for $21,380.00 was approved because it exactly matches the amount on purchase order PO-10242 for $21,380.00. This match was made possible by verifying the purchase order number on the invoice. The exact match allows for automatic approval of the invoice.",
+    "rules_triggered": [
+      "BR-1",
+      "BR-2",
+      "BR-3",
+      "BR-4"
+    ],
+    "extracted_invoice": {
+      "invoice_number": "INV-7742",
+      "invoice_date": "2026-05-20",
+      "vendor_name": "Riverside Manufacturing Co.",
+      "po_reference": "PO-10242",
+      "line_items": [
+        {
+          "description": "Steel rods (10ft)",
+          "quantity": 50.0,
+          "unit_price": 22.0,
+          "amount": 1100.0
+        },
+        {
+          "description": "Aluminum sheets",
+          "quantity": 30.0,
+          "unit_price": 45.5,
+          "amount": 1365.0
+        },
+        {
+          "description": "Copper wiring (100ft spool)",
+          "quantity": 20.0,
+          "unit_price": 60.0,
+          "amount": 1200.0
+        },
+        {
+          "description": "Industrial bolts (box)",
+          "quantity": 40.0,
+          "unit_price": 15.25,
+          "amount": 610.0
+        },
+        {
+          "description": "Safety helmets",
+          "quantity": 25.0,
+          "unit_price": 18.0,
+          "amount": 450.0
+        },
+        {
+          "description": "Work gloves (pair)",
+          "quantity": 60.0,
+          "unit_price": 8.5,
+          "amount": 510.0
+        },
+        {
+          "description": "Welding rods (box)",
+          "quantity": 15.0,
+          "unit_price": 35.0,
+          "amount": 525.0
+        },
+        {
+          "description": "Hydraulic hose (10ft)",
+          "quantity": 12.0,
+          "unit_price": 40.0,
+          "amount": 480.0
+        },
+        {
+          "description": "Pressure gauges",
+          "quantity": 10.0,
+          "unit_price": 65.0,
+          "amount": 650.0
+        },
+        {
+          "description": "Steel brackets",
+          "quantity": 80.0,
+          "unit_price": 6.25,
+          "amount": 500.0
+        },
+        {
+          "description": "Conveyor belt sections",
+          "quantity": 5.0,
+          "unit_price": 220.0,
+          "amount": 1100.0
+        },
+        {
+          "description": "Industrial fasteners",
+          "quantity": 100.0,
+          "unit_price": 3.1,
+          "amount": 310.0
+        },
+        {
+          "description": "Protective coating (gal)",
+          "quantity": 20.0,
+          "unit_price": 28.0,
+          "amount": 560.0
+        },
+        {
+          "description": "Machine oil (5gal)",
+          "quantity": 15.0,
+          "unit_price": 32.0,
+          "amount": 480.0
+        },
+        {
+          "description": "Packaging crates",
+          "quantity": 40.0,
+          "unit_price": 21.25,
+          "amount": 850.0
+        },
+        {
+          "description": "Steel rods (10ft) (Batch 2)",
+          "quantity": 50.0,
+          "unit_price": 22.0,
+          "amount": 1100.0
+        },
+        {
+          "description": "Aluminum sheets (Batch 2)",
+          "quantity": 30.0,
+          "unit_price": 45.5,
+          "amount": 1365.0
+        },
+        {
+          "description": "Copper wiring (100ft spool) (Batch 2)",
+          "quantity": 20.0,
+          "unit_price": 60.0,
+          "amount": 1200.0
+        },
+        {
+          "description": "Industrial bolts (box) (Batch 2)",
+          "quantity": 40.0,
+          "unit_price": 15.25,
+          "amount": 610.0
+        },
+        {
+          "description": "Safety helmets (Batch 2)",
+          "quantity": 25.0,
+          "unit_price": 18.0,
+          "amount": 450.0
+        },
+        {
+          "description": "Work gloves (pair) (Batch 2)",
+          "quantity": 60.0,
+          "unit_price": 8.5,
+          "amount": 510.0
+        },
+        {
+          "description": "Welding rods (box) (Batch 2)",
+          "quantity": 15.0,
+          "unit_price": 35.0,
+          "amount": 525.0
+        },
+        {
+          "description": "Hydraulic hose (10ft) (Batch 2)",
+          "quantity": 12.0,
+          "unit_price": 40.0,
+          "amount": 480.0
+        },
+        {
+          "description": "Pressure gauges (Batch 2)",
+          "quantity": 10.0,
+          "unit_price": 65.0,
+          "amount": 650.0
+        },
+        {
+          "description": "Steel brackets (Batch 2)",
+          "quantity": 80.0,
+          "unit_price": 6.25,
+          "amount": 500.0
+        },
+        {
+          "description": "Conveyor belt sections (Batch 2)",
+          "quantity": 5.0,
+          "unit_price": 220.0,
+          "amount": 1100.0
+        },
+        {
+          "description": "Industrial fasteners (Batch 2)",
+          "quantity": 100.0,
+          "unit_price": 3.1,
+          "amount": 310.0
+        },
+        {
+          "description": "Protective coating (gal) (Batch 2)",
+          "quantity": 20.0,
+          "unit_price": 28.0,
+          "amount": 560.0
+        },
+        {
+          "description": "Machine oil (5gal) (Batch 2)",
+          "quantity": 15.0,
+          "unit_price": 32.0,
+          "amount": 480.0
+        },
+        {
+          "description": "Packaging crates (Batch 2)",
+          "quantity": 40.0,
+          "unit_price": 21.25,
+          "amount": 850.0
+        }
+      ],
+      "subtotal": 21380.0,
+      "tax": 0.0,
+      "total": 21380.0,
+      "extraction_confidence_notes": ""
+    },
+    "match_method": "po_number",
+    "extraction_method": "text"
+  },
+  {
+    "run_id": "1b037e72-7ca4-4137-b361-4412d6596c12",
+    "timestamp": "2026-07-11T00:05:34.465232",
+    "invoice_number": "INV-8850",
+    "vendor_name": "Harbor Point Consulting",
+    "matched_po": "PO-10243",
+    "total": 8600.0,
+    "decision": "APPROVE",
+    "reasoning": "The invoice INV-8850 from Harbor Point Consulting for $8,600 was approved because it exactly matched the purchase order PO-10243 for $8,600. Since the invoice amount matched the purchase order amount, it was considered valid and approved for payment.",
+    "rules_triggered": [
+      "BR-1",
+      "BR-2",
+      "BR-3",
+      "BR-4"
+    ],
+    "extracted_invoice": {
+      "invoice_number": "INV-8850",
+      "invoice_date": "2026-06-03",
+      "vendor_name": "Harbor Point Consulting",
+      "po_reference": "PO-10243",
+      "line_items": [
+        {
+          "description": "Strategic advisory - Q2 engagement",
+          "quantity": 1.0,
+          "unit_price": 6000.0,
+          "amount": 6000.0
+        },
+        {
+          "description": "On-site workshop facilitation",
+          "quantity": 2.0,
+          "unit_price": 1250.0,
+          "amount": 2500.0
+        },
+        {
+          "description": "Volume discount",
+          "quantity": 1.0,
+          "unit_price": -500.0,
+          "amount": -500.0
+        }
+      ],
+      "subtotal": 8000.0,
+      "tax": 600.0,
+      "total": 8600.0,
+      "extraction_confidence_notes": ""
+    },
+    "match_method": "po_number",
+    "extraction_method": "text"
+  },
+  {
+    "run_id": "424c9e19-64f9-42dc-b3f2-ae5f6bcd2d71",
+    "timestamp": "2026-07-11T00:05:39.788826",
+    "invoice_number": "INV-9110",
+    "vendor_name": "Cascade Parts & Supply",
+    "matched_po": "PO-10244",
+    "total": 2150.0,
+    "decision": "APPROVE",
+    "reasoning": "The invoice from Cascade Parts & Supply for $2150.0 was approved because it exactly matched the amount on purchase order PO-10244 for $2150.0. The match was made using the purchase order number, ensuring it was the correct order. This exact match allowed for automatic approval of the invoice INV-9110.",
+    "rules_triggered": [
+      "BR-1",
+      "BR-2",
+      "BR-3",
+      "BR-4"
+    ],
+    "extracted_invoice": {
+      "invoice_number": "INV-9110",
+      "invoice_date": "2026-05-22",
+      "vendor_name": "Cascade Parts & Supply",
+      "po_reference": "PO-10244",
+      "line_items": [
+        {
+          "description": "Ball bearings (box of 100)",
+          "quantity": 6.0,
+          "unit_price": 175.0,
+          "amount": 1050.0
+        },
+        {
+          "description": "Drive belts",
+          "quantity": 20.0,
+          "unit_price": 30.0,
+          "amount": 600.0
+        },
+        {
+          "description": "Lubricant (5gal drum)",
+          "quantity": 10.0,
+          "unit_price": 50.0,
+          "amount": 500.0
+        }
+      ],
+      "subtotal": 2150.0,
+      "tax": 0.0,
+      "total": 2150.0,
+      "extraction_confidence_notes": ""
+    },
+    "match_method": "po_number",
+    "extraction_method": "vision"
+  },
+  {
+    "run_id": "e896469a-bede-4284-b11d-67550b2c18a3",
+    "timestamp": "2026-07-11T00:05:44.846268",
+    "invoice_number": "INV-9225",
+    "vendor_name": "Ironclad Freight Co.",
+    "matched_po": "PO-10245",
+    "total": 3780.0,
+    "decision": "APPROVE",
+    "reasoning": "The invoice from Ironclad Freight Co. for $3780.0 was approved because it matches the amount on purchase order PO-10245, which is also for $3780.0. This exact match confirms that the goods or services were properly ordered and the invoice is valid.",
+    "rules_triggered": [
+      "BR-1",
+      "BR-2",
+      "BR-3",
+      "BR-4"
+    ],
+    "extracted_invoice": {
+      "invoice_number": "INV-9225",
+      "invoice_date": "2026-05-23",
+      "vendor_name": "Ironclad Freight Co.",
+      "po_reference": "PO-10245",
+      "line_items": [
+        {
+          "description": "Freight - long haul route",
+          "quantity": 3.0,
+          "unit_price": 1160.0,
+          "amount": 3480.0
+        },
+        {
+          "description": "Fuel surcharge",
+          "quantity": 1.0,
+          "unit_price": 300.0,
+          "amount": 300.0
+        }
+      ],
+      "subtotal": 3780.0,
+      "tax": 0.0,
+      "total": 3780.0,
+      "extraction_confidence_notes": ""
+    },
+    "match_method": "po_number",
+    "extraction_method": "vision"
+  },
+  {
+    "run_id": "b26934dc-c000-4a63-b650-3f5dca9d8d0a",
+    "timestamp": "2026-07-11T00:05:52.856868",
+    "invoice_number": "INV-9340",
+    "vendor_name": "Pinnacle Equipment Rentals",
+    "matched_po": "PO-10246",
+    "total": 31100.0,
+    "decision": "APPROVE",
+    "reasoning": "The invoice from Pinnacle Equipment Rentals for $31,100.00 was approved because it exactly matches the amount on purchase order PO-10246 for $31,100.00. The invoice and purchase order were linked by the matching PO number. This match confirms that the invoice is valid and should be paid.",
+    "rules_triggered": [
+      "BR-1",
+      "BR-2",
+      "BR-3",
+      "BR-4"
+    ],
+    "extracted_invoice": {
+      "invoice_number": "INV-9340",
+      "invoice_date": "2026-05-24",
+      "vendor_name": "Pinnacle Equipment Rentals",
+      "po_reference": "PO-10246",
+      "line_items": [
+        {
+          "description": "Excavator rental (weekly)",
+          "quantity": 2.0,
+          "unit_price": 1200.0,
+          "amount": 2400.0
+        },
+        {
+          "description": "Bulldozer rental (weekly)",
+          "quantity": 1.0,
+          "unit_price": 1800.0,
+          "amount": 1800.0
+        },
+        {
+          "description": "Concrete mixer rental",
+          "quantity": 3.0,
+          "unit_price": 150.0,
+          "amount": 450.0
+        },
+        {
+          "description": "Scaffolding sections",
+          "quantity": 20.0,
+          "unit_price": 45.0,
+          "amount": 900.0
+        },
+        {
+          "description": "Generator rental (5kW)",
+          "quantity": 4.0,
+          "unit_price": 200.0,
+          "amount": 800.0
+        },
+        {
+          "description": "Air compressor rental",
+          "quantity": 2.0,
+          "unit_price": 175.0,
+          "amount": 350.0
+        },
+        {
+          "description": "Forklift rental (weekly)",
+          "quantity": 1.0,
+          "unit_price": 950.0,
+          "amount": 950.0
+        },
+        {
+          "description": "Traffic cones (set of 50)",
+          "quantity": 3.0,
+          "unit_price": 60.0,
+          "amount": 180.0
+        },
+        {
+          "description": "Safety barriers",
+          "quantity": 10.0,
+          "unit_price": 35.0,
+          "amount": 350.0
+        },
+        {
+          "description": "Portable lighting towers",
+          "quantity": 4.0,
+          "unit_price": 220.0,
+          "amount": 880.0
+        },
+        {
+          "description": "Pressure washer rental",
+          "quantity": 2.0,
+          "unit_price": 90.0,
+          "amount": 180.0
+        },
+        {
+          "description": "Trench box rental",
+          "quantity": 1.0,
+          "unit_price": 600.0,
+          "amount": 600.0
+        },
+        {
+          "description": "Skid steer rental (weekly)",
+          "quantity": 1.0,
+          "unit_price": 1100.0,
+          "amount": 1100.0
+        },
+        {
+          "description": "Water pump rental",
+          "quantity": 3.0,
+          "unit_price": 120.0,
+          "amount": 360.0
+        },
+        {
+          "description": "Welding machine rental",
+          "quantity": 2.0,
+          "unit_price": 210.0,
+          "amount": 420.0
+        },
+        {
+          "description": "Site office trailer (monthly)",
+          "quantity": 1.0,
+          "unit_price": 850.0,
+          "amount": 850.0
+        },
+        {
+          "description": "Portable toilets (weekly)",
+          "quantity": 4.0,
+          "unit_price": 95.0,
+          "amount": 380.0
+        },
+        {
+          "description": "Dumpster rental (20yd)",
+          "quantity": 2.0,
+          "unit_price": 400.0,
+          "amount": 800.0
+        },
+        {
+          "description": "Crane rental (daily)",
+          "quantity": 1.0,
+          "unit_price": 1500.0,
+          "amount": 1500.0
+        },
+        {
+          "description": "Survey equipment rental",
+          "quantity": 1.0,
+          "unit_price": 300.0,
+          "amount": 300.0
+        },
+        {
+          "description": "Excavator rental (weekly) (Batch 2)",
+          "quantity": 2.0,
+          "unit_price": 1200.0,
+          "amount": 2400.0
+        },
+        {
+          "description": "Bulldozer rental (weekly) (Batch 2)",
+          "quantity": 1.0,
+          "unit_price": 1800.0,
+          "amount": 1800.0
+        },
+        {
+          "description": "Concrete mixer rental (Batch 2)",
+          "quantity": 3.0,
+          "unit_price": 150.0,
+          "amount": 450.0
+        },
+        {
+          "description": "Scaffolding sections (Batch 2)",
+          "quantity": 20.0,
+          "unit_price": 45.0,
+          "amount": 900.0
+        },
+        {
+          "description": "Generator rental (5kW) (Batch 2)",
+          "quantity": 4.0,
+          "unit_price": 200.0,
+          "amount": 800.0
+        },
+        {
+          "description": "Air compressor rental (Batch 2)",
+          "quantity": 2.0,
+          "unit_price": 175.0,
+          "amount": 350.0
+        },
+        {
+          "description": "Forklift rental (weekly) (Batch 2)",
+          "quantity": 1.0,
+          "unit_price": 950.0,
+          "amount": 950.0
+        },
+        {
+          "description": "Traffic cones (set of 50) (Batch 2)",
+          "quantity": 3.0,
+          "unit_price": 60.0,
+          "amount": 180.0
+        },
+        {
+          "description": "Safety barriers (Batch 2)",
+          "quantity": 10.0,
+          "unit_price": 35.0,
+          "amount": 350.0
+        },
+        {
+          "description": "Portable lighting towers (Batch 2)",
+          "quantity": 4.0,
+          "unit_price": 220.0,
+          "amount": 880.0
+        },
+        {
+          "description": "Pressure washer rental (Batch 2)",
+          "quantity": 2.0,
+          "unit_price": 90.0,
+          "amount": 180.0
+        },
+        {
+          "description": "Trench box rental (Batch 2)",
+          "quantity": 1.0,
+          "unit_price": 600.0,
+          "amount": 600.0
+        },
+        {
+          "description": "Skid steer rental (weekly) (Batch 2)",
+          "quantity": 1.0,
+          "unit_price": 1100.0,
+          "amount": 1100.0
+        },
+        {
+          "description": "Water pump rental (Batch 2)",
+          "quantity": 3.0,
+          "unit_price": 120.0,
+          "amount": 360.0
+        },
+        {
+          "description": "Welding machine rental (Batch 2)",
+          "quantity": 2.0,
+          "unit_price": 210.0,
+          "amount": 420.0
+        },
+        {
+          "description": "Site office trailer (monthly) (Batch 2)",
+          "quantity": 1.0,
+          "unit_price": 850.0,
+          "amount": 850.0
+        },
+        {
+          "description": "Portable toilets (weekly) (Batch 2)",
+          "quantity": 4.0,
+          "unit_price": 95.0,
+          "amount": 380.0
+        },
+        {
+          "description": "Dumpster rental (20yd) (Batch 2)",
+          "quantity": 2.0,
+          "unit_price": 400.0,
+          "amount": 800.0
+        },
+        {
+          "description": "Crane rental (daily) (Batch 2)",
+          "quantity": 1.0,
+          "unit_price": 1500.0,
+          "amount": 1500.0
+        },
+        {
+          "description": "Survey equipment rental (Batch 2)",
+          "quantity": 1.0,
+          "unit_price": 300.0,
+          "amount": 300.0
+        }
+      ],
+      "subtotal": 31100.0,
+      "tax": 0.0,
+      "total": 31100.0,
+      "extraction_confidence_notes": ""
+    },
+    "match_method": "po_number",
+    "extraction_method": "vision"
+  },
+  {
+    "run_id": "6a4695d8-1ace-40cb-b572-433a89cd5e14",
+    "timestamp": "2026-07-11T00:05:56.847350",
+    "invoice_number": "ZCS-2026-0442",
+    "vendor_name": "ZENITH CLOUD SERVICES",
+    "matched_po": "PO-10247",
+    "total": 915.0,
+    "decision": "APPROVE",
+    "reasoning": "The invoice from ZENITH CLOUD SERVICES for $915.0 was approved because it exactly matches the amount on purchase order PO-10247, and the PO number on the invoice matches the PO number in our system. This confirms that the invoice is legitimate and corresponds to an authorized purchase.",
+    "rules_triggered": [
+      "BR-1",
+      "BR-2",
+      "BR-3",
+      "BR-4"
+    ],
+    "extracted_invoice": {
+      "invoice_number": "ZCS-2026-0442",
+      "invoice_date": "2026-05-22",
+      "vendor_name": "ZENITH CLOUD SERVICES",
+      "po_reference": "PO-10247",
+      "line_items": [
+        {
+          "description": "Cloud Compute Instance (m5.large)",
+          "quantity": 3.0,
+          "unit_price": 85.0,
+          "amount": 255.0
+        },
+        {
+          "description": "Managed Database Add-on",
+          "quantity": 1.0,
+          "unit_price": 120.0,
+          "amount": 120.0
+        },
+        {
+          "description": "Support Hours",
+          "quantity": 12.0,
+          "unit_price": 45.0,
+          "amount": 540.0
+        }
+      ],
+      "subtotal": null,
+      "tax": null,
+      "total": 915.0,
+      "extraction_confidence_notes": ""
+    },
+    "match_method": "po_number",
+    "extraction_method": "text"
+  },
+  {
+    "run_id": "d1defe90-98f8-4a8f-9944-afa839bd0430",
+    "timestamp": "2026-07-11T00:14:12.303710",
+    "invoice_number": "ZCS-2026-0442",
+    "vendor_name": "ZENITH CLOUD SERVICES",
+    "matched_po": "PO-10247",
+    "total": 915.0,
+    "decision": "REJECT",
+    "reasoning": "The invoice from ZENITH CLOUD SERVICES for invoice number ZCS-2026-0442 is being rejected because we've already paid an identical invoice from this vendor with the same number and amount. This is to prevent duplicate payments.",
+    "rules_triggered": [
+      "BR-3"
+    ],
+    "extracted_invoice": {
+      "invoice_number": "ZCS-2026-0442",
+      "invoice_date": "2026-05-22",
+      "vendor_name": "ZENITH CLOUD SERVICES",
+      "po_reference": "PO-10247",
+      "line_items": [
+        {
+          "description": "Cloud Compute Instance (m5.large)",
+          "quantity": 3.0,
+          "unit_price": 85.0,
+          "amount": 255.0
+        },
+        {
+          "description": "Managed Database Add-on",
+          "quantity": 1.0,
+          "unit_price": 120.0,
+          "amount": 120.0
+        },
+        {
+          "description": "Support Hours",
+          "quantity": 12.0,
+          "unit_price": 45.0,
+          "amount": 540.0
+        }
+      ],
+      "subtotal": null,
+      "tax": null,
+      "total": 915.0,
+      "extraction_confidence_notes": ""
+    },
+    "match_method": "po_number",
+    "extraction_method": "text"
+  },
+  {
+    "run_id": "41fcb2c0-4ce8-498e-a848-cafd7f8986fa",
+    "timestamp": "2026-07-11T00:17:22.003259",
+    "invoice_number": "INV-5810",
+    "vendor_name": "Alderwood Consulting Group",
+    "matched_po": "PO-10238",
+    "total": 6200.0,
+    "decision": "REJECT",
+    "reasoning": "The invoice from Alderwood Consulting Group for INV-5810 is being rejected because we've already processed an invoice with the same vendor, invoice number, and amount. This means we've already paid this exact invoice once, so we can't pay it again. The duplicate invoice amount is being prevented from being processed to avoid overpayment.",
+    "rules_triggered": [
+      "BR-3"
+    ],
+    "extracted_invoice": {
+      "invoice_number": "INV-5810",
+      "invoice_date": "2026-05-18",
+      "vendor_name": "Alderwood Consulting Group",
+      "po_reference": "PO-10238",
+      "line_items": [
+        {
+          "description": "Process advisory - May engagement",
+          "quantity": 1.0,
+          "unit_price": 5600.0,
+          "amount": 5600.0
+        },
+        {
+          "description": "Additional workshop session (out of scope)",
+          "quantity": 1.0,
+          "unit_price": 600.0,
+          "amount": 600.0
+        }
+      ],
+      "subtotal": 6200.0,
+      "tax": 0.0,
+      "total": 6200.0,
+      "extraction_confidence_notes": ""
+    },
+    "match_method": "po_number",
+    "extraction_method": "text"
+  },
+  {
+    "run_id": "aad7c784-74a0-4f3a-b24d-8d653965f413",
+    "timestamp": "2026-07-11T19:18:21.024737",
+    "invoice_number": "1001",
+    "vendor_name": "Fast Photography",
+    "matched_po": null,
+    "total": 500.0,
+    "decision": "REJECT",
+    "reasoning": "The invoice from Fast Photography was rejected because it doesn't reference a valid purchase order (PO) and no matching PO was found in our system for this vendor. This means we can't verify that the goods or services on invoice 1001 were actually ordered. Without a PO to back up the invoice, we can't approve the payment.",
+    "rules_triggered": [
+      "BR-1"
+    ],
+    "extracted_invoice": {
+      "invoice_number": "1001",
+      "invoice_date": "2025-09-01",
+      "vendor_name": "Fast Photography",
+      "po_reference": null,
+      "line_items": [
+        {
+          "description": "Headshots",
+          "quantity": 2.0,
+          "unit_price": 250.0,
+          "amount": 500.0
+        }
+      ],
+      "subtotal": null,
+      "tax": null,
+      "total": 500.0,
+      "extraction_confidence_notes": ""
+    },
+    "match_method": "no_match",
+    "extraction_method": "vision"
+  },
+  {
+    "run_id": "9017bc37-2541-4529-9f7a-45494125eb7a",
+    "timestamp": "2026-07-11T19:19:11.260788",
+    "invoice_number": "1001",
+    "vendor_name": "Fast Photography",
+    "matched_po": null,
+    "total": 500.0,
+    "decision": "REJECT",
+    "reasoning": "The invoice from Fast Photography for invoice number 1001 was rejected because there is no matching purchase order on file for this vendor. Since Fast Photography didn't include a reference to a purchase order on the invoice, we couldn't verify that the goods or services were ordered.",
+    "rules_triggered": [
+      "BR-1"
+    ],
+    "extracted_invoice": {
+      "invoice_number": "1001",
+      "invoice_date": "2025-09-01",
+      "vendor_name": "Fast Photography",
+      "po_reference": null,
+      "line_items": [
+        {
+          "description": "Headshots",
+          "quantity": 2.0,
+          "unit_price": 250.0,
+          "amount": 500.0
+        }
+      ],
+      "subtotal": null,
+      "tax": null,
+      "total": 500.0,
+      "extraction_confidence_notes": ""
+    },
+    "match_method": "no_match",
+    "extraction_method": "vision"
+  },
+  {
+    "run_id": "b15a5c6c-52d0-47ec-a5fb-b9adf99c8f49",
+    "timestamp": "2026-07-11T19:20:08.718121",
+    "invoice_number": "1001",
+    "vendor_name": "Fast Photography",
+    "matched_po": null,
+    "total": 500.0,
+    "decision": "REJECT",
+    "reasoning": "The invoice from Fast Photography for invoice number 1001 was rejected because there is no matching purchase order on file for this vendor. The invoice itself also doesn't reference a specific purchase order, so we can't verify that the goods or services were actually ordered.",
+    "rules_triggered": [
+      "BR-1"
+    ],
+    "extracted_invoice": {
+      "invoice_number": "1001",
+      "invoice_date": "2025-09-01",
+      "vendor_name": "Fast Photography",
+      "po_reference": null,
+      "line_items": [
+        {
+          "description": "Headshots",
+          "quantity": 2.0,
+          "unit_price": 250.0,
+          "amount": 500.0
+        }
+      ],
+      "subtotal": null,
+      "tax": null,
+      "total": 500.0,
+      "extraction_confidence_notes": ""
+    },
+    "match_method": "no_match",
+    "extraction_method": "vision"
+  },
+  {
+    "run_id": "4166ff2f-901f-4e26-ae62-23c054cc21c2",
+    "timestamp": "2026-07-11T19:20:37.359251",
+    "invoice_number": "000001",
+    "vendor_name": "Olivia Wilson",
+    "matched_po": null,
+    "total": 755.0,
+    "decision": "REJECT",
+    "reasoning": "The invoice from Olivia Wilson with number 000001 was rejected because there is no purchase order on file that matches this invoice. Since Olivia Wilson didn't include a purchase order reference on the invoice, we couldn't find a matching order to verify the charges.",
+    "rules_triggered": [
+      "BR-1"
+    ],
+    "extracted_invoice": {
+      "invoice_number": "000001",
+      "invoice_date": "2030-06-02",
+      "vendor_name": "Olivia Wilson",
+      "po_reference": null,
+      "line_items": [
+        {
+          "description": "Logo",
+          "quantity": 1.0,
+          "unit_price": 500.0,
+          "amount": 500.0
+        },
+        {
+          "description": "Banner (2x6m)",
+          "quantity": 2.0,
+          "unit_price": 45.0,
+          "amount": 90.0
+        },
+        {
+          "description": "Poster (1x2m)",
+          "quantity": 3.0,
+          "unit_price": 55.0,
+          "amount": 165.0
+        }
+      ],
+      "subtotal": null,
+      "tax": null,
+      "total": 755.0,
+      "extraction_confidence_notes": ""
+    },
+    "match_method": "no_match",
+    "extraction_method": "vision"
+  }
+]
