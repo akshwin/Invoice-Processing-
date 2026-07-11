@@ -3,7 +3,7 @@ groq==0.31.1
 pdfplumber==0.11.10
 pymupdf==1.26.4
 streamlit==1.59.1
-pydantic==2.11.9
+pydantic>=2.11.9
 reportlab==5.0.0
 pandas==2.2.2
 python-dotenv==1.2.1
