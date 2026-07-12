@@ -1,6 +1,9 @@
 import type { Decision } from "./theme";
 
-export const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000";
+// Strip any trailing slash — a base URL configured as "https://host.com/" would
+// otherwise produce double-slash paths like "https://host.com//api/runs", which
+// FastAPI's router treats as a different (nonexistent) path and 404s.
+export const API_BASE = (process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000").replace(/\/+$/, "");
 
 export interface LineItem {
   description: string;
