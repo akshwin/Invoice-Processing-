@@ -216,3 +216,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# The generic `lib/` pattern above (for Python build artifacts) unintentionally also
+# matches frontend/lib/ — that's real source (API client + shared constants), not a
+# build artifact. Un-ignore it explicitly.
+!frontend/lib/
+!frontend/lib/**
