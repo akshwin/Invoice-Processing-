@@ -6,7 +6,7 @@ component notes). A node failure sets `error`/`error_stage` on the state and the
 straight to END instead of crashing or hanging (BRD Section 11 — Reliability).
 """
 import os
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Optional, TypedDict
 
 import groq
@@ -85,7 +85,7 @@ def decision_node(state: PipelineState) -> dict:
 
         record = {
             "run_id": state["run_id"],
-            "timestamp": datetime.now().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "invoice_number": invoice.invoice_number,
             "vendor_name": invoice.vendor_name,
             "matched_po": match.matched_po.po_number if match.matched_po else None,
