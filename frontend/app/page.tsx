@@ -1,27 +1,55 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import StageDetailPanel from "@/components/StageDetailPanel";
 import StatusBadge from "@/components/StatusBadge";
-import Stepper from "@/components/Stepper";
-import { createRun, streamRun, type RunRecord, type StreamEvent } from "@/lib/api";
-import { STAGE_ORDER, type StageState } from "@/lib/theme";
+import {
+  createRun,
+  fetchSampleFile,
+  streamRun,
+  type RunRecord,
+  type StageData,
+  type StreamEvent,
+} from "@/lib/api";
+import { STAGE_ORDER, type Stage, type StageState } from "@/lib/theme";
 
-function initialStageStates(): Record<string, StageState> {
-  return Object.fromEntries(STAGE_ORDER.map((s) => [s, "pending" as StageState]));
+const STAGE_ICONS: Record<StageState, string> = { pending: "○", running: "●", done: "✓", error: "✕" };
+const STAGE_SUB: Record<StageState, string> = { pending: "Pending", running: "Running…", done: "Complete", error: "Failed" };
+
+function initialStageStates(): Record<Stage, StageState> {
+  return Object.fromEntries(STAGE_ORDER.map((s) => [s, "pending" as StageState])) as Record<Stage, StageState>;
 }
 
-export default function RunPage() {
+function RunPageInner() {
+  const searchParams = useSearchParams();
   const [file, setFile] = useState<File | null>(null);
   const [running, setRunning] = useState(false);
-  const [stageStates, setStageStates] = useState<Record<string, StageState>>(initialStageStates());
+  const [stageStates, setStageStates] = useState<Record<Stage, StageState>>(initialStageStates());
+  const [stageData, setStageData] = useState<Partial<Record<Stage, StageData>>>({});
+  const [activeStage, setActiveStage] = useState<Stage>(STAGE_ORDER[0]);
   const [result, setResult] = useState<RunRecord | null>(null);
   const [error, setError] = useState<{ stage: string; message: string } | null>(null);
+  const [loadingSample, setLoadingSample] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const sample = searchParams.get("sample");
+    if (!sample) return;
+    setLoadingSample(true);
+    fetchSampleFile(sample)
+      .then((f) => pickFile(f))
+      .catch((e) => setError({ stage: "Sample", message: e instanceof Error ? e.message : String(e) }))
+      .finally(() => setLoadingSample(false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
 
   function pickFile(f: File | null) {
     setFile(f);
     setResult(null);
     setError(null);
+    setStageStates(initialStageStates());
+    setStageData({});
   }
 
   async function runPipeline() {
@@ -29,9 +57,11 @@ export default function RunPage() {
     setRunning(true);
     setResult(null);
     setError(null);
+    setStageData({});
     const states = initialStageStates();
     states[STAGE_ORDER[0]] = "running";
     setStageStates({ ...states });
+    setActiveStage(STAGE_ORDER[0]);
 
     try {
       const { run_id } = await createRun(file);
@@ -39,17 +69,23 @@ export default function RunPage() {
       await new Promise<void>((resolve) => {
         streamRun(run_id, (event: StreamEvent) => {
           if (event.type === "stage_done") {
-            states[event.stage] = "done";
-            const idx = STAGE_ORDER.indexOf(event.stage as (typeof STAGE_ORDER)[number]);
+            const stage = event.stage as Stage;
+            states[stage] = "done";
+            const idx = STAGE_ORDER.indexOf(stage);
             if (idx >= 0 && idx + 1 < STAGE_ORDER.length) {
               states[STAGE_ORDER[idx + 1]] = "running";
             }
             setStageStates({ ...states });
+            setStageData((prev) => ({ ...prev, [stage]: event.data }));
+            setActiveStage(stage);
           } else if (event.type === "result") {
             setResult(event.record);
           } else if (event.type === "error") {
-            const idx = STAGE_ORDER.indexOf(event.stage as (typeof STAGE_ORDER)[number]);
-            if (idx >= 0) states[STAGE_ORDER[idx]] = "error";
+            const idx = STAGE_ORDER.indexOf(event.stage as Stage);
+            if (idx >= 0) {
+              states[STAGE_ORDER[idx]] = "error";
+              setActiveStage(STAGE_ORDER[idx]);
+            }
             setStageStates({ ...states });
             setError({ stage: event.stage, message: event.message });
           } else if (event.type === "end") {
@@ -64,8 +100,15 @@ export default function RunPage() {
     }
   }
 
+  const started = running || result !== null || error !== null || Object.keys(stageData).length > 0;
+
   return (
     <div>
+      <div className="page-header">
+        <h2>Run Pipeline</h2>
+        <p>Upload an invoice PDF and watch it move through extraction, PO matching, validation, and decisioning.</p>
+      </div>
+
       <div className="card">
         <div className="section-label">Upload</div>
         <div
@@ -86,24 +129,62 @@ export default function RunPage() {
             tabIndex={-1}
             onChange={(e) => pickFile(e.target.files?.[0] ?? null)}
           />
-          <div>{file ? "Choose a different PDF" : "Click or drag an invoice PDF here"}</div>
+          <div>
+            {loadingSample
+              ? "Loading sample invoice…"
+              : file
+                ? "Choose a different PDF"
+                : "Click or drag an invoice PDF here"}
+          </div>
           {file && <div className="filename">{file.name}</div>}
         </div>
         <button className="primary" disabled={!file || running} onClick={runPipeline}>
           {running ? "Running…" : "Run pipeline"}
         </button>
+        <p style={{ fontSize: 13, color: "var(--ink-muted)", marginTop: 14 }}>
+          Don&apos;t have an invoice handy? Browse the <a href="/samples">Sample Invoices</a> library — it includes
+          clean invoices, scanned/photographed invoices, rule-violation edge cases, and a completely different
+          layout.
+        </p>
       </div>
 
-      {(running || result || error) && (
-        <div className="card">
-          <div className="section-label">Pipeline progress</div>
-          <Stepper stageStates={stageStates} />
+      {started && (
+        <div className="run-layout" style={{ marginTop: 22 }}>
+          <div className="stage-tab-list">
+            {STAGE_ORDER.map((stage) => {
+              const state = stageStates[stage];
+              return (
+                <button
+                  key={stage}
+                  className={`stage-tab ${activeStage === stage ? "active" : ""}`}
+                  disabled={state === "pending"}
+                  onClick={() => setActiveStage(stage)}
+                >
+                  <span className={`tab-icon ${state}`}>{STAGE_ICONS[state]}</span>
+                  <span className="tab-text">
+                    <span className="tab-title">{stage}</span>
+                    <span className="tab-sub">{STAGE_SUB[state]}</span>
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="card">
+            <div className="section-label">{activeStage}</div>
+            {stageStates[activeStage] === "error" && error ? (
+              <div className="error-box">
+                Processing failed at the <strong>{error.stage}</strong> stage: {error.message}
+              </div>
+            ) : (
+              <StageDetailPanel stage={activeStage} data={stageData[activeStage]} />
+            )}
+          </div>
         </div>
       )}
 
-      {error && (
+      {error && stageStates[error.stage as Stage] === undefined && (
         <div className="card">
-          <div className="section-label">Result</div>
           <div className="error-box">
             Processing failed at the <strong>{error.stage}</strong> stage: {error.message}
           </div>
@@ -111,49 +192,20 @@ export default function RunPage() {
       )}
 
       {result && (
-        <div className="card">
-          <div className="section-label">Result</div>
+        <div className="card" style={{ marginTop: 18 }}>
+          <div className="section-label">Final decision</div>
           <StatusBadge decision={result.decision} />
-          {result.extraction_method === "vision" && (
-            <p style={{ fontSize: 13, color: "var(--ink-muted)", marginTop: 10 }}>
-              📷 This PDF had no machine-readable text layer (scanned/image-based) — fields were read directly
-              from the page image.
-            </p>
-          )}
-          <div className="field-grid">
-            <div>
-              <div className="field-label">Vendor</div>
-              <div>{result.vendor_name ?? "—"}</div>
-            </div>
-            <div>
-              <div className="field-label">Invoice number</div>
-              <div>{result.invoice_number ?? "—"}</div>
-            </div>
-            <div>
-              <div className="field-label">Matched PO</div>
-              <div>{result.matched_po ?? "None"}</div>
-            </div>
-          </div>
-          <div className="field-label">Reasoning</div>
-          <p>{result.reasoning}</p>
-
-          <details className="json-details">
-            <summary>Details — raw extracted data &amp; rule IDs</summary>
-            <pre>
-              {JSON.stringify(
-                {
-                  rules_triggered: result.rules_triggered,
-                  match_method: result.match_method,
-                  extraction_method: result.extraction_method,
-                  extracted_invoice: result.extracted_invoice,
-                },
-                null,
-                2
-              )}
-            </pre>
-          </details>
+          <p style={{ marginTop: 14 }}>{result.reasoning}</p>
         </div>
       )}
     </div>
+  );
+}
+
+export default function RunPage() {
+  return (
+    <Suspense fallback={<div className="card">Loading…</div>}>
+      <RunPageInner />
+    </Suspense>
   );
 }

@@ -5,7 +5,9 @@ handled for free and an API has to do explicitly:
 - Live stage-by-stage progress: pipeline.stream() is a synchronous generator, so
   it runs in a background thread per request; each yielded step is pushed onto a
   thread-safe queue.Queue, and an async SSE endpoint drains that queue and streams
-  it to the client as it arrives.
+  it to the client as it arrives. Each stage_done event carries a `data` payload
+  with that stage's actual output (extracted fields, PO match detail, rule-by-rule
+  validation outcomes) so the UI can render more than a checkmark.
 - Run history: SQLite (src/storage.py) instead of the Streamlit app's flat JSON
   file, since concurrent API requests writing to a JSON file is a real correctness
   risk that a single-user Streamlit session never had to worry about.
@@ -21,7 +23,7 @@ from datetime import datetime
 from dotenv import load_dotenv
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import StreamingResponse
+from fastapi.responses import FileResponse, StreamingResponse
 
 from src import storage
 from src.pipeline import build_pipeline
@@ -51,6 +53,150 @@ STAGE_ORDER = ["Extraction", "PO Matching", "Validation", "Decision"]
 # run_id -> queue.Queue of progress events for that run, while it's in flight.
 _RUN_QUEUES: dict[str, "queue.Queue"] = {}
 
+SAMPLES_DIR = os.path.join(os.path.dirname(__file__), "data", "invoices")
+
+# Human-readable metadata for the canonical test invoices, exposed via /api/samples so a
+# tester can pick a specific scenario (clean, scanned, mismatched, novel format, ...)
+# instead of needing their own PDFs to try the app.
+SAMPLE_INVOICES = [
+    {
+        "filename": "INV-1001_bluebird.pdf",
+        "label": "Clean happy path",
+        "vendor_name": "Bluebird Supplies Inc.",
+        "description": "Straightforward text invoice, exact PO number and amount match.",
+        "expected_outcome": "APPROVE",
+    },
+    {
+        "filename": "INV-2044_meridian.pdf",
+        "label": "Clean, compact layout",
+        "vendor_name": "Meridian Office Solutions",
+        "description": "Different visual layout from the first sample, still an exact match.",
+        "expected_outcome": "APPROVE",
+    },
+    {
+        "filename": "INV-3390_crestview.pdf",
+        "label": "Within tolerance, not exact",
+        "vendor_name": "Crestview Logistics LLC",
+        "description": "Invoice total differs slightly from the PO amount but within the BR-4 tolerance band.",
+        "expected_outcome": "APPROVE",
+    },
+    {
+        "filename": "INV-4502_northgate.pdf",
+        "label": "No PO number on invoice",
+        "vendor_name": "Northgate Industrial Parts",
+        "description": "No explicit PO reference — matched implicitly by vendor name and amount proximity.",
+        "expected_outcome": "APPROVE",
+    },
+    {
+        "filename": "INV-5810_alderwood_EC1_amount_mismatch.pdf",
+        "label": "EC-1: amount mismatch",
+        "vendor_name": "Alderwood Consulting Group",
+        "description": "Invoice total is well outside tolerance of the matched PO amount.",
+        "expected_outcome": "FLAG_FOR_REVIEW",
+    },
+    {
+        "filename": "INV-6021_fairview_EC2_missing_total.pdf",
+        "label": "EC-2: missing required field",
+        "vendor_name": "Fairview Business Services",
+        "description": "Invoice is missing its total, tripping the BR-2 required-fields check.",
+        "expected_outcome": "FLAG_FOR_REVIEW",
+    },
+    {
+        "filename": "INV-7188_summit_EC3_scanned.pdf",
+        "label": "EC-3: scanned invoice",
+        "vendor_name": "Summit Hardware Co.",
+        "description": "Image-only PDF with no text layer — exercises the vision-based extraction fallback.",
+        "expected_outcome": "APPROVE",
+    },
+    {
+        "filename": "INV-7742_riverside_complex_multipage.pdf",
+        "label": "Multi-page text invoice",
+        "vendor_name": "Riverside Manufacturing Co.",
+        "description": "Line items span multiple pages of machine-readable text.",
+        "expected_outcome": "APPROVE",
+    },
+    {
+        "filename": "INV-8850_harborpoint_complex_discount_tax.pdf",
+        "label": "Discount + split tax lines",
+        "vendor_name": "Harbor Point Consulting",
+        "description": "More complex totals section with a discount line and split tax rates.",
+        "expected_outcome": "APPROVE",
+    },
+    {
+        "filename": "INV-9110_cascade_scanned_skewed.pdf",
+        "label": "Scanned, skewed page",
+        "vendor_name": "Cascade Parts & Supply",
+        "description": "Scanned invoice photographed at an angle — stresses the vision fallback further.",
+        "expected_outcome": "APPROVE",
+    },
+    {
+        "filename": "INV-9225_ironclad_scanned_lowquality.pdf",
+        "label": "Scanned, low quality / noisy",
+        "vendor_name": "Ironclad Freight Co.",
+        "description": "Low-resolution, noisy scan of a printed invoice.",
+        "expected_outcome": "APPROVE",
+    },
+    {
+        "filename": "INV-9340_pinnacle_scanned_multipage.pdf",
+        "label": "Scanned, multi-page",
+        "vendor_name": "Pinnacle Equipment Rentals",
+        "description": "Multi-page scanned invoice, every page processed through the vision fallback.",
+        "expected_outcome": "APPROVE",
+    },
+    {
+        "filename": "INV-ZCS-0442_zenith_freeform_format.pdf",
+        "label": "Completely different format",
+        "vendor_name": "Zenith Cloud Services",
+        "description": "A wholly novel invoice layout never seen in the other samples — proves the extraction generalizes rather than pattern-matching a known template.",
+        "expected_outcome": "APPROVE",
+    },
+]
+_SAMPLE_FILENAMES = {s["filename"] for s in SAMPLE_INVOICES}
+
+
+def _serialize_stage_data(node_name: str, output: dict) -> dict:
+    """Turn a pipeline node's raw output into a JSON-safe detail payload for the UI."""
+    if node_name == "extraction":
+        invoice = output["extracted_invoice"]
+        return {
+            "extracted_invoice": invoice.model_dump(),
+            "extraction_method": output.get("extraction_method"),
+        }
+
+    if node_name == "po_matching":
+        match = output["match_result"]
+        po = match.matched_po
+        return {
+            "match_method": match.match_method,
+            "notes": match.notes,
+            "matched_po": (
+                {
+                    "po_number": po.po_number,
+                    "vendor_name": po.vendor_name,
+                    "po_amount": po.po_amount,
+                    "po_date": po.po_date,
+                    "status": po.status,
+                }
+                if po
+                else None
+            ),
+        }
+
+    if node_name == "validation":
+        validation = output["validation_result"]
+        return {
+            "rules_checked": [
+                {"rule_id": o.rule_id, "passed": o.passed, "message": o.message}
+                for o in validation.outcomes
+            ],
+            "failed_rule": validation.failed_outcome.rule_id if validation.failed_outcome else None,
+        }
+
+    if node_name == "decision":
+        return output["decision"]
+
+    return {}
+
 
 def _process_run(run_id: str, pdf_path: str, q: "queue.Queue") -> None:
     try:
@@ -66,7 +212,7 @@ def _process_run(run_id: str, pdf_path: str, q: "queue.Queue") -> None:
                 q.put({"type": "end"})
                 return
 
-            q.put({"type": "stage_done", "stage": stage_name})
+            q.put({"type": "stage_done", "stage": stage_name, "data": _serialize_stage_data(node_name, output)})
             if "decision" in output:
                 q.put({"type": "result", "record": output["decision"]})
         q.put({"type": "end"})
@@ -83,6 +229,21 @@ def _process_run(run_id: str, pdf_path: str, q: "queue.Queue") -> None:
 @app.get("/api/health")
 def health():
     return {"status": "ok", "time": datetime.now().isoformat()}
+
+
+@app.get("/api/samples")
+def list_samples():
+    return SAMPLE_INVOICES
+
+
+@app.get("/api/samples/{filename}")
+def get_sample(filename: str):
+    if filename not in _SAMPLE_FILENAMES:
+        raise HTTPException(404, "Unknown sample invoice.")
+    path = os.path.join(SAMPLES_DIR, filename)
+    if not os.path.isfile(path):
+        raise HTTPException(404, "Sample file missing on server.")
+    return FileResponse(path, media_type="application/pdf", filename=filename)
 
 
 @app.post("/api/runs")

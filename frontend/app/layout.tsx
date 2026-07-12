@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Nav from "@/components/Nav";
+import Sidebar from "@/components/Sidebar";
 
 export const metadata: Metadata = {
   title: "Invoice Processing",
@@ -11,16 +11,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body>
-        <div className="shell">
-          <header className="app-hero">
-            <h1>Invoice Processing</h1>
-            <p>
-              AI-assisted extraction, PO matching, and rule-based decisioning — with the reasoning to back up
-              every call.
-            </p>
-          </header>
-          <Nav />
-          {children}
+        <div className="app-shell">
+          <Sidebar />
+          <main className="main-content">
+            <div className="main-inner">{children}</div>
+          </main>
         </div>
       </body>
     </html>

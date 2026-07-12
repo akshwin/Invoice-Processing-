@@ -39,11 +39,57 @@ export interface RunRecord {
   extraction_method: string;
 }
 
+export interface PurchaseOrderDetail {
+  po_number: string;
+  vendor_name: string;
+  po_amount: number;
+  po_date: string;
+  status: string;
+}
+
+export interface RuleCheck {
+  rule_id: string;
+  passed: boolean;
+  message: string;
+}
+
+export interface ExtractionStageData {
+  extracted_invoice: ExtractedInvoice;
+  extraction_method: string | null;
+}
+
+export interface PoMatchingStageData {
+  match_method: string;
+  notes: string;
+  matched_po: PurchaseOrderDetail | null;
+}
+
+export interface ValidationStageData {
+  rules_checked: RuleCheck[];
+  failed_rule: string | null;
+}
+
+export type DecisionStageData = RunRecord;
+
+export type StageData =
+  | ExtractionStageData
+  | PoMatchingStageData
+  | ValidationStageData
+  | DecisionStageData;
+
 export type StreamEvent =
-  | { type: "stage_done"; stage: string }
+  | { type: "stage_done"; stage: string; data: StageData }
   | { type: "result"; record: RunRecord }
   | { type: "error"; stage: string; message: string }
   | { type: "end" };
+
+export interface SampleInvoice {
+  filename: string;
+  label: string;
+  vendor_name: string;
+  description: string;
+  expected_outcome: Decision;
+}
 
 export async function createRun(file: File): Promise<{ run_id: string; stages: string[] }> {
   const form = new FormData();
@@ -84,4 +130,21 @@ export async function getRun(runId: string): Promise<RunRecord> {
   const res = await fetch(`${API_BASE}/api/runs/${runId}`);
   if (!res.ok) throw new Error(`Run not found (${res.status})`);
   return res.json();
+}
+
+export async function listSamples(): Promise<SampleInvoice[]> {
+  const res = await fetch(`${API_BASE}/api/samples`);
+  if (!res.ok) throw new Error(`Failed to load sample invoices (${res.status})`);
+  return res.json();
+}
+
+export function sampleDownloadUrl(filename: string): string {
+  return `${API_BASE}/api/samples/${encodeURIComponent(filename)}`;
+}
+
+export async function fetchSampleFile(filename: string): Promise<File> {
+  const res = await fetch(sampleDownloadUrl(filename));
+  if (!res.ok) throw new Error(`Failed to fetch sample (${res.status})`);
+  const blob = await res.blob();
+  return new File([blob], filename, { type: "application/pdf" });
 }
